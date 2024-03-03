@@ -1,0 +1,11 @@
+import turtle
+import random
+import ast
+
+window  = None
+WINX, WINY = 400, 400
+
+window = turtle.Screen()
+window.setup(WINX,WINY)
+window.bgcolor("white")
+window.mainloop()
