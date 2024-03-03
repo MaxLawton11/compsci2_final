@@ -2,6 +2,7 @@ import socket
 import threading
 import time
 import copy
+import json
 
 import Shapes
 
@@ -54,9 +55,15 @@ class MasterSocket :
     def receive(self) :
         while True :
             response = self.client.recv(1024).decode()
+            self._decodePacket(response)
 
-            response = response.split(';')
-            response = response[1:]
-            for resp in response :
-                resp= eval(resp) # PLEASE CHANGE
-                self.parent_Client.screen.objects.append(Shapes.Circle(resp['x'], resp['y'], 20, 'red'))
+    def _decodePacket(self, packet) :
+        packet = packet.split(';')
+        packet = packet[1:]
+        for single_packet in packet :
+            if single_packet[-1] != '}' :
+                continue
+
+            single_packet = single_packet.replace("'", "\"")
+            single_packet = json.loads(single_packet)
+            self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], 20, 'red'))
