@@ -3,6 +3,8 @@ import threading
 import time
 import copy
 
+import Shapes
+
 class Socket :
     def __init__(self, parent_Client) :
         self.parent_Client = parent_Client
@@ -35,7 +37,8 @@ class Socket :
         self.send()
 
 class MasterSocket :
-    def __init__(self, parent_Client=None) :
+    def __init__(self, parent_Client) :
+        self.parent_Client = parent_Client
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = '192.168.1.63'
         self.port = 12345
@@ -52,8 +55,8 @@ class MasterSocket :
         while True :
             response = self.client.recv(1024).decode()
 
-            print(response)
-
             response = response.split(';')
             response = response[1:]
-            print(response)
+            for resp in response :
+                resp= eval(resp) # PLEASE CHANGE
+                self.parent_Client.screen.objects.append(Shapes.Circle(resp['x'], resp['y'], 20, 'red'))
