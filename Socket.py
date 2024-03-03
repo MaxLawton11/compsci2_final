@@ -27,7 +27,7 @@ class Socket :
             object_sub_packet['shape'] = 'circle'
             object_sub_packet['x'] = object.vector.x
             object_sub_packet['y'] = object.vector.y
-            packet = packet+f", {object_sub_packet}"
+            packet = packet+f";{object_sub_packet}"
              
         self.connection.send(packet.encode())
 
@@ -51,4 +51,9 @@ class MasterSocket :
     def receive(self) :
         while True :
             response = self.client.recv(1024).decode()
-            print("Received:", response)
+
+            print(response)
+
+            response = response.split(';')
+            response = response[1:]
+            print(response)

@@ -4,5 +4,4 @@ if __name__ == "__main__" :
     alpha = Client.Master()
 
     while True :
-        #alpha.tick()
-        pass
+        alpha.tick()
