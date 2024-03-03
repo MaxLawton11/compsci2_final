@@ -70,6 +70,9 @@ class ClientUserInput :
 
 class Master(Client) :
     def __init__(self):
+        self.screen = Screen()
+        self.user_input = ClientUserInput()
+        
         self.socket = threading.Thread(target=Socket.MasterSocket)
         self.socket.start()
 

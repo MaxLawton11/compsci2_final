@@ -7,7 +7,7 @@ class Socket :
     def __init__(self, parent_Client) :
         self.parent_Client = parent_Client
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.host = 'localhost'
+        self.host = '192.168.1.63'
         self.port = 12345
         self.connection.connect((self.host, self.port))
 
@@ -37,7 +37,7 @@ class Socket :
 class MasterSocket :
     def __init__(self, parent_Client=None) :
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.host = 'localhost'
+        self.host = '192.168.1.63'
         self.port = 12345
         self.server_socket.bind((self.host, self.port))
         self.server_socket.listen(5)

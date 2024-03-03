@@ -2,7 +2,7 @@ import socket
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-host = 'localhost'
+host = '192.168.1.63'
 port = 12345
 
 server_socket.bind((host, port))
