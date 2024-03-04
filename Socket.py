@@ -43,8 +43,9 @@ class Socket :
             packet = response.split(';')
             packet = packet[1:]
             for single_packet in packet :
-                if single_packet[-1] != '}' :
-                    continue
+                if single_packet :
+                    if single_packet[-1] != '}' :
+                        continue
 
                 single_packet = single_packet.replace("'", "\"")
                 single_packet = json.loads(single_packet)
