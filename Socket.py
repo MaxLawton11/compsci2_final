@@ -62,6 +62,9 @@ class MasterSocket(Socket) :
         self.client, addr = self.server_socket.accept()
         print("------", self.client)
 
+        self.send_thread = threading.Thread(target=self.send)
+        self.send_thread.start()
+
         self.socket_receive_thread = threading.Thread(target=self.receive)
         self.socket_receive_thread.start()
 
@@ -76,3 +79,6 @@ class ClientSocket(Socket) :
 
         self.send_thread = threading.Thread(target=self.send)
         self.send_thread.start()
+
+        self.socket_receive_thread = threading.Thread(target=self.receive)
+        self.socket_receive_thread.start()
