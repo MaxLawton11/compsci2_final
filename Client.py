@@ -13,9 +13,7 @@ class Client :
 
         self.socket = threading.Thread(target=Socket.ClientSocket, args=(self,))
         self.socket.start()
-
-        self.screen.addObject(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
-
+        
     def move(self) :
         if self.user_input.getMouseClicked() :
             print("clicketeds")

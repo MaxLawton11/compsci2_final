@@ -54,9 +54,7 @@ class Socket :
                     continue
 
                 single_packet = json.loads(single_packet)
-                setter.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']))
-            
-            self.parent_Client.screen.objects = copy.deepcopy(setter)
+                self.parent_Client.screen.objects = [setter.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']))]
 
 
 
