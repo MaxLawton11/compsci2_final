@@ -23,21 +23,22 @@ class Socket :
     def receive(self) :
         while True :
             response = self.connection.recv(1024).decode()
+            print(response)
 
             packet = response.split(';')
             packet = packet[1:]
-            for single_packet in packet :
-                if single_packet :
-                    if single_packet[-1] != '}' :
-                        continue
-
-                single_packet = single_packet.replace("'", "\"")
-
-                if not single_packet :
+        
+            if packet :
+                if packet[-1] != '}' :
                     continue
-                
-                single_packet = json.loads(single_packet)
-                self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']) )
+
+            packet = packet.replace("'", "\"")
+
+            if not packet :
+                continue
+            
+            packet = json.loads(packet)
+            self.parent_Client.screen.objects.append(Shapes.Circle(packet['x'], packet['y'], packet['side_length'], packet['color']) )
 
 
 
