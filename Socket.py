@@ -10,27 +10,14 @@ ip = '172.20.10.2'
 port = 1234
 
 class Socket :
-    def send(self) :
-        sub_packet = {
-            'shape' : None,
-            'x' : 0,
-            'y' : 0,
-            'side_length' : 0,
-            'color' : None
+    def send(self, object) :
+        packet = {
+            'shape' : 'circle',
+            'x' : object.vector.x,
+            'y' : object.vector.y,
+            'side_length' : object.side_length,
+            'color' : object.color
         }
-        packet = ''
-
-        for object in self.parent_Client.screen.objects :
-            object_sub_packet = copy.deepcopy(sub_packet)
-
-            object_sub_packet['shape'] = 'circle'
-            object_sub_packet['x'] = object.vector.x
-            object_sub_packet['y'] = object.vector.y
-            object_sub_packet['side_length'] = object.side_length
-            object_sub_packet['color'] = object.color
-
-            packet = packet+f";{object_sub_packet}"
-             
         self.connection.send(packet.encode())
 
     def receive(self) :
