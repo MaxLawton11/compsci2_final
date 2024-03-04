@@ -38,7 +38,7 @@ class Socket :
 
     def receive(self) :
         while True :
-            response = self.client.recv(1024).decode()
+            response = self.connection.recv(1024).decode()
 
             packet = response.split(';')
             packet = packet[1:]
@@ -50,6 +50,8 @@ class Socket :
                 single_packet = json.loads(single_packet)
                 self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']) )
 
+
+
 class MasterSocket(Socket) :
     def __init__(self, parent_Client) :
         self.parent_Client = parent_Client
@@ -59,8 +61,8 @@ class MasterSocket(Socket) :
         self.server_socket.bind((self.host, self.port))
         self.server_socket.listen(5)
 
-        self.client, addr = self.server_socket.accept()
-        print("------", self.client)
+        self.connection, addr = self.server_socket.accept()
+        print("------", self.connection)
 
         self.send_thread = threading.Thread(target=self.send)
         self.send_thread.start()
