@@ -18,7 +18,7 @@ class Socket :
             'side_length' : object.side_length,
             'color' : object.color
         }
-        self.connection.send(packet.encode())
+        self.connection.send(str(packet).encode())
 
     def receive(self) :
         while True :
