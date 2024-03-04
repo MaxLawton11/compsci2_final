@@ -6,7 +6,7 @@ import json
 
 import Shapes
 
-ip = '172.16.31.61'
+ip = '172.20.10.2'
 port = 1234
 
 class Socket :
