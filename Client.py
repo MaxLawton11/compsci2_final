@@ -11,8 +11,7 @@ class Client :
         self.screen = Screen.Screen()
         self.user_input = ClientUserInput()
 
-        self.socket = threading.Thread(target=Socket.ClientSocket, args=(self,))
-        self.socket.start()
+        self.socket = Socket.ClientSocket(self)
 
     def _addObject(self) :
         if self.user_input.getMouseClicked() :
