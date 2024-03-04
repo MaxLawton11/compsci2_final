@@ -8,7 +8,7 @@ import Screen
 
 class Client :
     def __init__(self):
-        self.screen = Screen()
+        self.screen = Screen.Screen()
         self.user_input = ClientUserInput()
 
         self.socket = threading.Thread(target=Socket.ClientSocket, args=(self,))
@@ -47,7 +47,7 @@ class ClientUserInput :
 
 class Master :
     def __init__(self):
-        self.screen = Screen()
+        self.screen = Screen.Screen()
         self.user_input = ClientUserInput()
 
         self.socket = threading.Thread(target=Socket.MasterSocket, args=(self,))
