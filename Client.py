@@ -18,7 +18,9 @@ class Client :
 
     def move(self) :
         if self.user_input.getMouseClicked() :
-            self.screen.objects[0].vector = pygame.Vector2(self.user_input.getMousePos())
+            x = self.user_input.getMousePos()[0]
+            y = self.user_input.getMousePos()[1]
+            self.screen.objects[0].vector = pygame.Vector2(x,y)
         else :
             return
 
