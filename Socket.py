@@ -86,7 +86,7 @@ class ClientSocket(Socket) :
         self.socket_receive_thread = threading.Thread(target=self.testreceive)
         self.socket_receive_thread.start()
 
-        def testreceive(self) :
-            while True :
-                response = self.connection.recv(1024).decode()
-                print(response)
+    def testreceive(self) :
+        while True :
+            response = self.connection.recv(1024).decode()
+            print(response)
