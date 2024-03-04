@@ -10,7 +10,7 @@ class Client :
         self.screen = Screen()
         self.user_input = ClientUserInput()
 
-        self.socket = threading.Thread(target=Socket.Socket, args=(self,))
+        self.socket = threading.Thread(target=Socket.ClientSocket, args=(self,))
         self.socket.start()
 
     def _addObject(self) :
