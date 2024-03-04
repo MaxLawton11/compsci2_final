@@ -20,7 +20,7 @@ class Socket :
         }
         packet = ''
 
-        object = self.parent_Client.screen.objects
+        object = self.parent_Client.screen.objects[0]
         print(self.parent_Client.screen.objects)
         object_sub_packet = copy.deepcopy(sub_packet)
 
