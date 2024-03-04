@@ -16,7 +16,7 @@ class Client :
     def _addObject(self) :
         if self.user_input.getMouseClicked() :
             self.screen.addObject(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
-            self.socket.send(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
+            self.socket.send(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
         else :
             return
 

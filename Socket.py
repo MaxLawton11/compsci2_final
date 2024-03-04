@@ -32,6 +32,9 @@ class Socket :
 
             if not packet :
                 continue
+
+            if packet.count('}') >= 2 :
+                continue
             
             print(packet)
             packet = json.loads(packet)
