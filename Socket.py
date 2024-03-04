@@ -20,16 +20,17 @@ class Socket :
         }
         packet = ''
 
-        for object in self.parent_Client.screen.objects :
-            object_sub_packet = copy.deepcopy(sub_packet)
+        object = self.parent_Client.screen.objects
+        print(self.parent_Client.screen.objects)
+        object_sub_packet = copy.deepcopy(sub_packet)
 
-            object_sub_packet['shape'] = 'circle'
-            object_sub_packet['x'] = object.vector.x
-            object_sub_packet['y'] = object.vector.y
-            object_sub_packet['side_length'] = object.side_length
-            object_sub_packet['color'] = object.color
+        object_sub_packet['shape'] = 'circle'
+        object_sub_packet['x'] = object.vector.x
+        object_sub_packet['y'] = object.vector.y
+        object_sub_packet['side_length'] = object.side_length
+        object_sub_packet['color'] = object.color
 
-            packet = packet+f";{object_sub_packet}"
+        packet = packet+f";{object_sub_packet}"
              
         self.connection.send(packet.encode())
 
