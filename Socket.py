@@ -22,11 +22,7 @@ class Socket :
 
     def receive(self) :
         while True :
-            response = self.connection.recv(1024).decode()
-            print(response)
-
-            packet = response.split(';')
-            packet = packet[1:]
+            packet = self.connection.recv(1024).decode()
         
             if packet :
                 if packet[-1] != '}' :
@@ -37,6 +33,7 @@ class Socket :
             if not packet :
                 continue
             
+            print(packet)
             packet = json.loads(packet)
             self.parent_Client.screen.objects.append(Shapes.Circle(packet['x'], packet['y'], packet['side_length'], packet['color']) )
 
