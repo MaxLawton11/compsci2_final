@@ -98,5 +98,6 @@ class ClientSocket(Socket) :
                         continue
 
                 single_packet = single_packet.replace("'", "\"")
+                print('->', single_packet)
                 single_packet = json.loads(single_packet)
                 self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']) )
