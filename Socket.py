@@ -48,6 +48,10 @@ class Socket :
                         continue
 
                 single_packet = single_packet.replace("'", "\"")
+
+                if not single_packet :
+                    continue
+                
                 single_packet = json.loads(single_packet)
                 self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']) )
 
@@ -83,24 +87,5 @@ class ClientSocket(Socket) :
         self.send_thread = threading.Thread(target=self.send)
         self.send_thread.start()
 
-        self.socket_receive_thread = threading.Thread(target=self.testreceive)
+        self.socket_receive_thread = threading.Thread(target=self.receive)
         self.socket_receive_thread.start()
-
-    def testreceive(self) :
-        while True :
-            response = self.connection.recv(1024).decode()
-
-            packet = response.split(';')
-            packet = packet[1:]
-            for single_packet in packet :
-                if single_packet :
-                    if single_packet[-1] != '}' :
-                        continue
-
-                single_packet = single_packet.replace("'", "\"")
-
-                if not single_packet :
-                    continue
-                
-                single_packet = json.loads(single_packet)
-                self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']) )
