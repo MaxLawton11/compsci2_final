@@ -40,7 +40,7 @@ class Socket :
         while True :
             response = self.connection.recv(1024).decode()
 
-            setter = None
+            setter = []
             packet = response.split(';')
             packet = packet[1:]
             for single_packet in packet :
