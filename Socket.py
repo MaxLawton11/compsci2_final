@@ -33,9 +33,6 @@ class Socket :
              
         self.connection.send(packet.encode())
 
-        time.sleep(0.3)
-        self.send() # send again
-
     def receive(self) :
         while True :
             response = self.connection.recv(1024).decode()
@@ -69,9 +66,6 @@ class MasterSocket(Socket) :
         self.connection, addr = self.server_socket.accept()
         print("------", self.connection)
 
-        self.send_thread = threading.Thread(target=self.send)
-        self.send_thread.start()
-
         self.socket_receive_thread = threading.Thread(target=self.receive)
         self.socket_receive_thread.start()
 
@@ -83,9 +77,6 @@ class ClientSocket(Socket) :
         self.host = ip
         self.port = port
         self.connection.connect((self.host, self.port))
-
-        self.send_thread = threading.Thread(target=self.send)
-        self.send_thread.start()
 
         self.socket_receive_thread = threading.Thread(target=self.receive)
         self.socket_receive_thread.start()

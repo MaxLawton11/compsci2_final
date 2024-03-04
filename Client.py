@@ -17,6 +17,7 @@ class Client :
     def _addObject(self) :
         if self.user_input.getMouseClicked() :
             self.screen.addObject(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
+            self.socket.send(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
         else :
             return
 
@@ -50,12 +51,12 @@ class Master :
         self.screen = Screen.Screen()
         self.user_input = ClientUserInput()
 
-        self.socket = threading.Thread(target=Socket.MasterSocket, args=(self,))
-        self.socket.start()
+        self.socket = Socket.MasterSocket(self)
 
     def _addObject(self) :
         if self.user_input.getMouseClicked() :
             self.screen.addObject(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
+            self.socket.send(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
         else :
             return
 
