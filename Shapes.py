@@ -5,7 +5,7 @@ class Circle :
         self.side_length = side_length
         self.color = color
         self.vector = pygame.Vector2(x, y)
-        self.sprite = pygame.Rect(self.vector.x,self.vector.y, side_length,side_length)
 
     def draw(self, screen) :
+        self.sprite = pygame.Rect(self.vector.x,self.vector.y, self.side_length, self.side_length)
         pygame.draw.rect(screen, self.color, self.sprite)

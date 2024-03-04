@@ -40,6 +40,7 @@ class Socket :
         while True :
             response = self.connection.recv(1024).decode()
 
+            setter = None
             packet = response.split(';')
             packet = packet[1:]
             for single_packet in packet :
@@ -51,9 +52,11 @@ class Socket :
 
                 if not single_packet :
                     continue
-                
+
                 single_packet = json.loads(single_packet)
-                self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']) )
+                setter.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']))
+            
+            self.parent_Client.screen.objects = copy.deepcopy(setter)
 
 
 
