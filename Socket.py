@@ -40,7 +40,7 @@ class Socket :
         while True :
             response = self.client.recv(1024).decode()
 
-            packet = packet.split(';')
+            packet = response.split(';')
             packet = packet[1:]
             for single_packet in packet :
                 if single_packet[-1] != '}' :
@@ -50,7 +50,7 @@ class Socket :
                 single_packet = json.loads(single_packet)
                 self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']) )
 
-class MasterSocket :
+class MasterSocket(Socket) :
     def __init__(self, parent_Client) :
         self.parent_Client = parent_Client
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

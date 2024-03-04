@@ -4,6 +4,7 @@ import asyncio
 
 import Shapes
 import Socket
+import Screen
 
 class Client :
     def __init__(self):
@@ -23,30 +24,6 @@ class Client :
         self.user_input.testEvents()
         self._addObject()
         self.screen.frame()
-
-class Screen :
-    def __init__(self) :
-        self.objects = []
-
-        pygame.init()
-        self.screen = pygame.display.set_mode((600, 600))
-        self.clock = pygame.time.Clock()
-        self.dt = 0
-
-    def addObject(self, object) :
-        self.objects.append(object)
-
-    def frame(self) :
-        self._drawObjects()
-
-        # show and loop
-        pygame.display.flip()
-        self.dt = self.clock.tick(60) / 1000
-
-    def _drawObjects(self) :
-        self.screen.fill("white") # reset screen
-        for object in self.objects :
-            object.draw(self.screen)
     
 class ClientUserInput :
     def __init__(self) :
@@ -68,12 +45,23 @@ class ClientUserInput :
     def getMouseClicked(self) :
         return self.mouse_click_last
 
-class Master(Client) :
+class Master :
     def __init__(self):
         self.screen = Screen()
         self.user_input = ClientUserInput()
 
         self.socket = threading.Thread(target=Socket.MasterSocket, args=(self,))
         self.socket.start()
+
+    def _addObject(self) :
+        if self.user_input.getMouseClicked() :
+            self.screen.addObject(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
+        else :
+            return
+
+    def tick(self) :
+        self.user_input.testEvents()
+        self._addObject()
+        self.screen.frame()
 
     
