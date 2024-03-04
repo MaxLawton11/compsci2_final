@@ -13,19 +13,16 @@ class Client :
 
         self.socket = threading.Thread(target=Socket.ClientSocket, args=(self,))
         self.socket.start()
-        
-    def move(self) :
+
+    def _addObject(self) :
         if self.user_input.getMouseClicked() :
-            print("clicketeds")
-            x = self.user_input.getMousePos()[0]
-            y = self.user_input.getMousePos()[1]
-            self.screen.objects[0].vector = pygame.Vector2(x,y)
+            self.screen.addObject(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
         else :
             return
 
     def tick(self) :
         self.user_input.testEvents()
-        self.move()
+        self._addObject()
         self.screen.frame()
     
 class ClientUserInput :
@@ -48,7 +45,7 @@ class ClientUserInput :
     def getMouseClicked(self) :
         return self.mouse_click_last
 
-class Master(Client) :
+class Master :
     def __init__(self):
         self.screen = Screen.Screen()
         self.user_input = ClientUserInput()
@@ -56,5 +53,15 @@ class Master(Client) :
         self.socket = threading.Thread(target=Socket.MasterSocket, args=(self,))
         self.socket.start()
 
-        self.screen.addObject(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
+    def _addObject(self) :
+        if self.user_input.getMouseClicked() :
+            self.screen.addObject(Shapes.Circle(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
+        else :
+            return
+
+    def tick(self) :
+        self.user_input.testEvents()
+        self._addObject()
+        self.screen.frame()
+
     

@@ -20,17 +20,16 @@ class Socket :
         }
         packet = ''
 
-        object = self.parent_Client.screen.objects[0]
-        print(self.parent_Client.screen.objects)
-        object_sub_packet = copy.deepcopy(sub_packet)
+        for object in self.parent_Client.screen.objects :
+            object_sub_packet = copy.deepcopy(sub_packet)
 
-        object_sub_packet['shape'] = 'circle'
-        object_sub_packet['x'] = object.vector.x
-        object_sub_packet['y'] = object.vector.y
-        object_sub_packet['side_length'] = object.side_length
-        object_sub_packet['color'] = object.color
+            object_sub_packet['shape'] = 'circle'
+            object_sub_packet['x'] = object.vector.x
+            object_sub_packet['y'] = object.vector.y
+            object_sub_packet['side_length'] = object.side_length
+            object_sub_packet['color'] = object.color
 
-        packet = packet+f";{object_sub_packet}"
+            packet = packet+f";{object_sub_packet}"
              
         self.connection.send(packet.encode())
 
@@ -41,7 +40,6 @@ class Socket :
         while True :
             response = self.connection.recv(1024).decode()
 
-            setter = []
             packet = response.split(';')
             packet = packet[1:]
             for single_packet in packet :
@@ -53,9 +51,9 @@ class Socket :
 
                 if not single_packet :
                     continue
-
+                
                 single_packet = json.loads(single_packet)
-                self.parent_Client.screen.objects = [setter.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color'])),]
+                self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']) )
 
 
 
