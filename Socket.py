@@ -89,4 +89,14 @@ class ClientSocket(Socket) :
     def testreceive(self) :
         while True :
             response = self.connection.recv(1024).decode()
-            print(response)
+
+            packet = response.split(';')
+            packet = packet[1:]
+            for single_packet in packet :
+                if single_packet :
+                    if single_packet[-1] != '}' :
+                        continue
+
+                single_packet = single_packet.replace("'", "\"")
+                single_packet = json.loads(single_packet)
+                self.parent_Client.screen.objects.append(Shapes.Circle(single_packet['x'], single_packet['y'], single_packet['side_length'], single_packet['color']) )
