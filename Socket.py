@@ -9,13 +9,13 @@ port = 1234
 
 class Socket :
     def send(self, object) :
-        packet = { # basic json packet
-            'type'        : object.type,
-            'x'           : object.vector.x    if isinstance(object, Shapes.Shape) else None,
-            'y'           : object.vector.y    if isinstance(object, Shapes.Shape) else None,
-            'side_length' : object.side_length if isinstance(object, Shapes.Shape) else None,
-            'color'       : object.color       if isinstance(object, Shapes.Shape) else None,
-        }
+        # packet = { # basic json packet
+        #     'type'        : object.type,
+        #     'x'           : object.vector.x    if isinstance(object, Shapes.Shape) else None,
+        #     'y'           : object.vector.y    if isinstance(object, Shapes.Shape) else None,
+        #     'side_length' : object.side_length if isinstance(object, Shapes.Shape) else None,
+        #     'color'       : object.color       if isinstance(object, Shapes.Shape) else None,
+        # }
         packet = { # basic json packet
             'type'        : object.type,
             'x'           : object.vector.x,
