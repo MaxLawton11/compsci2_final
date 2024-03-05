@@ -16,10 +16,6 @@ class Client :
             self.screen.addObject(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
             self.socket.send(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
 
-        if self.user_input.getCClicked() :
-            self.screen.objects = []
-            self.socket.send(Shapes.Clear())
-
     def tick(self) :
         self.user_input.testEvents()
         self.addObject()
@@ -36,10 +32,6 @@ class Master :
         if self.user_input.getMouseClicked() :
             self.screen.addObject(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
             self.socket.send(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
-
-        if self.user_input.getCClicked() :
-            self.screen.objects = []
-            self.socket.send(Shapes.Clear())
 
     def tick(self) :
         self.user_input.testEvents()
