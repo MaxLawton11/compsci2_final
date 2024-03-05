@@ -1,8 +1,11 @@
 import pygame
 
-class Square :
+class Shape :
+    pass
+
+class Square(Shape) :
     def __init__(self, x, y, side_length, color):
-        self.type = 'shape'
+        self.type = 'Square'
         self.side_length = side_length
         self.color = color
         self.vector = pygame.Vector2(x, y)
