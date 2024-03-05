@@ -33,9 +33,8 @@ class Socket :
             
             print(packet)
             packet = json.loads(packet) # turn back into json
-
-            if packet['type'] == 'shape' :
-                self.parent_Client.screen.objects.append(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) )
+            
+            self.parent_Client.screen.objects.append(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) )
 
 
 
