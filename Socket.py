@@ -12,7 +12,7 @@ port = 1234
 class Socket :
     def send(self, object) :
         packet = {
-            'shape' : 'circle',
+            'shape' : 'Square',
             'x' : object.vector.x,
             'y' : object.vector.y,
             'side_length' : object.side_length,
@@ -38,7 +38,7 @@ class Socket :
             
             print(packet)
             packet = json.loads(packet)
-            self.parent_Client.screen.objects.append(Shapes.Circle(packet['x'], packet['y'], packet['side_length'], packet['color']) )
+            self.parent_Client.screen.objects.append(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) )
 
 
 

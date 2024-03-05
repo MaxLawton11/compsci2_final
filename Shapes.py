@@ -1,6 +1,6 @@
 import pygame
 
-class Circle :
+class Square :
     def __init__(self, x, y, side_length, color):
         self.side_length = side_length
         self.color = color
