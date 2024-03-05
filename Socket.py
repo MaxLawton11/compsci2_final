@@ -16,6 +16,13 @@ class Socket :
             'side_length' : object.side_length if isinstance(object, Shapes.Shape) else None,
             'color'       : object.color       if isinstance(object, Shapes.Shape) else None,
         }
+        packet = { # basic json packet
+            'type'        : object.type,
+            'x'           : object.vector.x,
+            'y'           : object.vector.y,
+            'side_length' : object.side_length,
+            'color'       : object.color,
+        }
         self.connection.send(str(packet).encode()) 
 
     def receive(self) :
