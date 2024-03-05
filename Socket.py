@@ -22,6 +22,8 @@ class Socket :
         while True :
             packet = self.connection.recv(1024).decode()
 
+            print("-RAW->", packet)
+
             if packet :
                 if packet[-1] != '}' :
                     continue
@@ -33,7 +35,7 @@ class Socket :
             
             print(packet)
             packet = json.loads(packet) # turn back into json
-            
+
             self.parent_Client.screen.objects.append(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) )
 
 
