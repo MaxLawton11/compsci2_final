@@ -10,7 +10,8 @@ port = 1234
 class Socket :
     def send(self, object) :
         packet = { # basic json packet
-            'shape' : 'Square',
+            'type' : object.type,
+            'shape' : object.__class__,
             'x' : object.vector.x,
             'y' : object.vector.y,
             'side_length' : object.side_length,
@@ -21,7 +22,6 @@ class Socket :
     def receive(self) :
         while True :
             packet = self.connection.recv(1024).decode()
-        
 
             if packet :
                 if packet[-1] != '}' :
@@ -34,7 +34,9 @@ class Socket :
             
             print(packet)
             packet = json.loads(packet) # turn back into json
-            self.parent_Client.screen.objects.append(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) )
+
+            if packet['type'] == 'shape' :
+                self.parent_Client.screen.objects.append(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) )
 
 
 
