@@ -15,8 +15,10 @@ class Client :
         if self.user_input.getMouseClicked() :
             self.screen.addObject(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
             self.socket.send(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
-        else :
-            return
+
+        if self.user_input.getCClicked() :
+            self.screen.objects = []
+            self.socket.send(Shapes.Clear())
 
     def tick(self) :
         self.user_input.testEvents()
@@ -34,8 +36,10 @@ class Master :
         if self.user_input.getMouseClicked() :
             self.screen.addObject(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
             self.socket.send(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
-        else :
-            return
+
+        if self.user_input.getCClicked() :
+            self.screen.objects = []
+            self.socket.send(Shapes.Clear())
 
     def tick(self) :
         self.user_input.testEvents()
@@ -46,6 +50,7 @@ class Master :
 class ClientUserInput :
     def __init__(self) :
         self.mouse_click_last = False
+        self.c_click_last = False
 
     def testEvents(self) :
         for event in pygame.event.get():
@@ -57,10 +62,18 @@ class ClientUserInput :
             else :
                 self.mouse_click_last = False
 
+            if event.type == pygame.K_c :
+                self.c_click_last = True
+            else :
+                self.c_click_last = False
+
     def getMousePos(self) :
         return pygame.mouse.get_pos()
     
     def getMouseClicked(self) :
         return self.mouse_click_last
+    
+    def getCClicked(self) :
+        return self.c_click_last
 
     

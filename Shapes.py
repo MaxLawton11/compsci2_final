@@ -13,3 +13,7 @@ class Square(Shape) :
 
     def draw(self, screen) :
         pygame.draw.rect(screen, self.color, self.sprite)
+
+class Clear :
+    def __init__(self) :
+        self.type = 'Clear'
