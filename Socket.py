@@ -18,6 +18,8 @@ class Socket :
         }
         self.connection.send(str(packet).encode()) 
 
+        self.send(Shapes.Clear())
+
     def receive(self) :
         while True :
             packet = self.connection.recv(1024).decode()
