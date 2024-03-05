@@ -62,11 +62,6 @@ class ClientUserInput :
             else :
                 self.mouse_click_last = False
 
-            if event.type == pygame.K_c :
-                self.c_click_last = True
-            else :
-                self.c_click_last = False
-
     def getMousePos(self) :
         return pygame.mouse.get_pos()
     
