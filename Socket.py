@@ -6,7 +6,7 @@ import warnings
 import Shapes as Shapes
 
 # ip of master computer
-ip = '172.20.10.2'
+ip = '172.16.31.61'
 port = 1234
 
 class Socket : # basic socket menthods
