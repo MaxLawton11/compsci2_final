@@ -1,6 +1,7 @@
 import socket
 import threading
 import json
+import warnings
 
 import lib.Shapes as Shapes
 
@@ -11,7 +12,9 @@ port = 1234
 class Socket : # basic socket menthods
     def send(self, object) : # send info over socket
         packet = { # basic json packet
-            'type'        : object.type,
+            # Note: this packet is overengineered, but the thought was that you could have non-shape \
+            # cmds also sent via the packet. (ie. Clear, ChangeBgColor, etc)
+            'type'        : object.type,       # everthying sent must have a type
             'x'           : object.vector.x    if isinstance(object, Shapes.Shape) else None,
             'y'           : object.vector.y    if isinstance(object, Shapes.Shape) else None,
             'side_length' : object.side_length if isinstance(object, Shapes.Shape) else None,
@@ -35,8 +38,12 @@ class Socket : # basic socket menthods
             print(packet) # show pacet
             packet = json.loads(packet) # turn back into json
 
-            self.parent_Client.screen.addObject(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) ) # add new packet to local screen
-
+            match packet['type'] : # see how this type of packet should be handled
+                case 'Shape' : # is a shape
+                    self.parent_Client.screen.addObject(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) ) # add new packet to local screen
+                case _ : # if none of above
+                    warnings.warn("Invalid packet type received. Moving on.") # let user know that there was an incorrect packet
+                    continue
 
 class MasterSocket(Socket) : # the Master Socket
     def __init__(self, parent_Client) :
