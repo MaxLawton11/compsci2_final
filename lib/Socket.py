@@ -2,7 +2,7 @@ import socket
 import threading
 import json
 
-import Shapes
+import lib.Shapes as Shapes
 
 # ip of master computer
 ip = '172.20.10.2'
