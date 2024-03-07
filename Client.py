@@ -2,7 +2,11 @@ import Shapes
 import Socket
 import Screen
 
-class SubClient : # holds the methods used by both types of clients
+class _SubClient : # holds the methods used by both types of clients
+    def __init__(self) :
+        self.screen = Screen.Screen() # computer's screen
+        self.user_input = Screen.UserInput() # input from screen
+
     def tick(self) : # run ever time the clock ticks
         self.user_input.testEvents() # update eventss
         self.addObjectOnClick() # add object
@@ -14,17 +18,15 @@ class SubClient : # holds the methods used by both types of clients
             self.screen.addObject(Shapes.Square(cx,cy, 20, self.shape_color )) # print a shape localy
             self.socket.send(Shapes.Square(cx,cy, 20, self.shape_color )) # send a shape to peer
 
-class Client(SubClient) : # the Client
+class Client(_SubClient) : # the Client
     def __init__(self):
-        self.screen = Screen.Screen() # computer's screen
-        self.user_input = Screen.UserInput() # input from screen
+        super().__init__()
         self.socket = Socket.ClientSocket(self) # has a "Client" socket
         self.shape_color = 'red' # prints red shapes
 
-class Master(SubClient) : # the Master
+class Master(_SubClient) : # the Master
     def __init__(self):
-        self.screen = Screen.Screen() # computer's screen
-        self.user_input = Screen.UserInput() # input from screen
+        super().__init__()
         self.socket = Socket.MasterSocket(self) # has a "Master" socket
         self.shape_color = 'blue' # prints blue shapes
 
