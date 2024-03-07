@@ -3,7 +3,7 @@ import threading
 import json
 import warnings
 
-import lib.Shapes as Shapes
+import Shapes as Shapes
 
 # ip of master computer
 ip = '172.20.10.2'

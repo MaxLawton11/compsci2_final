@@ -1,6 +1,6 @@
-import lib.Shapes as Shapes
-import lib.Socket as Socket
-import lib.Screen as Screen
+import Shapes as Shapes
+import Socket as Socket
+import Screen as Screen
 
 class _SubClient : # holds the methods used by both types of clients
     def __init__(self) :
