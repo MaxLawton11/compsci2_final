@@ -4,11 +4,12 @@ import json
 
 import Shapes
 
+# ip of master computer
 ip = '172.20.10.2'
 port = 1234
 
-class Socket :
-    def send(self, object) :
+class Socket : # basic socket menthods
+    def send(self, object) : # send info over socket
         packet = { # basic json packet
             'type'        : object.type,
             'x'           : object.vector.x    if isinstance(object, Shapes.Shape) else None,
@@ -16,55 +17,56 @@ class Socket :
             'side_length' : object.side_length if isinstance(object, Shapes.Shape) else None,
             'color'       : object.color       if isinstance(object, Shapes.Shape) else None,
         }
-        self.connection.send(str(packet).encode()) 
+        self.connection.send(str(packet).encode()) # send packet
 
-    def receive(self) :
-        while True :
-            packet = self.connection.recv(1024).decode()
+    def receive(self) : # receive packet
+        while True : # always be looking for new packets
+            packet = self.connection.recv(1024).decode() # look for new packet (waits unit it finds one)
 
-            if packet :
+            if packet : # test if the packet is vaild
                 if packet[-1] != '}' :
-                    continue
+                    continue # next packet
 
-            packet = packet.replace("'", "\"")
+            packet = packet.replace("'", "\"") # make sure there isn't any ' cuz we need " for json
 
-            if (not packet) or (packet.count('}') >= 2) :
-                continue
+            if (not packet) or (packet.count('}') >= 2) : # more packet testing
+                continue # next packet
             
-            print(packet)
+            print(packet) # show pacet
             packet = json.loads(packet) # turn back into json
 
-            if packet['type'] == 'Clear' :
-                self.parent_Client.screen.objects = []
-            else :
-                self.parent_Client.screen.addObject(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) )
+            self.parent_Client.screen.addObject(Shapes.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) ) # add new packet to local screen
 
 
-class MasterSocket(Socket) :
+class MasterSocket(Socket) : # the Master Socket
     def __init__(self, parent_Client) :
-        self.parent_Client = parent_Client
+        self.parent_Client = parent_Client # track parent
+
+        # start socker server
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = ip
         self.port = port
         self.server_socket.bind((self.host, self.port))
         self.server_socket.listen(5)
 
-        self.connection, addr = self.server_socket.accept()
-        print("------", self.connection, "------")
+        self.connection, addr = self.server_socket.accept() # wait for a client to join
+        print("------", self.connection, "------") # show one has joined
 
-        # start receiving
+        # start receiving (runs in parallel)
         self.socket_receive_thread = threading.Thread(target=self.receive)
         self.socket_receive_thread.start()
 
 
-class ClientSocket(Socket) :
+class ClientSocket(Socket) : # the Client Socket
     def __init__(self, parent_Client) :
-        self.parent_Client = parent_Client
+        self.parent_Client = parent_Client # track parent
+
+        # join socket server
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = ip
         self.port = port
         self.connection.connect((self.host, self.port))
 
-        # start receiving
+        # start receiving (runs in parallel)
         self.socket_receive_thread = threading.Thread(target=self.receive)
         self.socket_receive_thread.start()

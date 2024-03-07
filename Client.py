@@ -1,66 +1,32 @@
-import pygame
-
 import Shapes
 import Socket
 import Screen
 
-class Client :
+class SubClient : # holds the methods used by both types of clients
+    def tick(self) : # run ever time the clock ticks
+        self.user_input.testEvents() # update eventss
+        self.addObjectOnClick() # add object
+        self.screen.frame() # new frame
+
+    def addObjectOnClick(self) : # if the mosue was pressed, then print and send a shape
+        if self.user_input.getMouseClicked() : # test for press
+            cx, cy = self.user_input.getMousePos() # get cords
+            self.screen.addObject(Shapes.Square(cx,cy, 20, self.shape_color )) # print a shape localy
+            self.socket.send(Shapes.Square(cx,cy, 20, self.shape_color )) # send a shape to peer
+
+class Client(SubClient) : # the Client
     def __init__(self):
-        self.screen = Screen.Screen()
-        self.user_input = ClientUserInput()
+        self.screen = Screen.Screen() # computer's screen
+        self.user_input = Screen.UserInput() # input from screen
+        self.socket = Socket.ClientSocket(self) # has a "Client" socket
+        self.shape_color = 'red' # prints red shapes
 
-        self.socket = Socket.ClientSocket(self)
-
-    def addObject(self) :
-        if self.user_input.getMouseClicked() :
-            self.screen.addObject(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
-            self.socket.send(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'red'))
-
-    def tick(self) :
-        self.user_input.testEvents()
-        self.addObject()
-        self.screen.frame()
-
-class Master :
+class Master(SubClient) : # the Master
     def __init__(self):
-        self.screen = Screen.Screen()
-        self.user_input = ClientUserInput()
+        self.screen = Screen.Screen() # computer's screen
+        self.user_input = Screen.UserInput() # input from screen
+        self.socket = Socket.MasterSocket(self) # has a "Master" socket
+        self.shape_color = 'blue' # prints blue shapes
 
-        self.socket = Socket.MasterSocket(self)
-
-    def addObject(self) :
-        if self.user_input.getMouseClicked() :
-            self.screen.addObject(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
-            self.socket.send(Shapes.Square(self.user_input.getMousePos()[0],self.user_input.getMousePos()[1],20,'blue'))
-
-    def tick(self) :
-        self.user_input.testEvents()
-        self.addObject()
-        self.screen.frame()
-    
-
-class ClientUserInput :
-    def __init__(self) :
-        self.mouse_click_last = False
-        self.c_click_last = False
-
-    def testEvents(self) :
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                exit()
-
-            if event.type == pygame.MOUSEBUTTONDOWN :
-                self.mouse_click_last = True
-            else :
-                self.mouse_click_last = False
-
-    def getMousePos(self) :
-        return pygame.mouse.get_pos()
-    
-    def getMouseClicked(self) :
-        return self.mouse_click_last
-    
-    def getCClicked(self) :
-        return self.c_click_last
 
     
