@@ -1,6 +1,6 @@
-import ScreenObjects as ScreenObjects
-import Socket as Socket
-import Screen as Screen
+import lib.ScreenObjects as ScreenObjects
+import lib.Socket as Socket
+import lib.Screen as Screen
 
 class _SubClient : # holds the methods used by both types of clients
     def __init__(self) :

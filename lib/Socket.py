@@ -3,7 +3,7 @@ import threading
 import json
 import warnings
 
-from ScreenObjects import Sendable, Shape, Square, Clear, ChangeGBColor
+from lib.ScreenObjects import Sendable, Shape, Square, Clear, ChangeGBColor
 
 # ip of master computer
 ip = '192.168.86.129'
