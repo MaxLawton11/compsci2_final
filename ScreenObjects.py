@@ -1,7 +1,5 @@
 import pygame
 
-import Screen
-
 class Sendable :
     pass
 
@@ -10,7 +8,7 @@ class Shape(Sendable) : # basic shape
         self.vector = pygame.Vector2(x, y) # pos of shape
         self.type = 'Shape' # type
 
-    def assignment(self, screen:Screen.Screen) :
+    def assignment(self, screen) :
         screen.objects.append(self)
 
 class Square(Shape) : # sqaure obejct
@@ -19,12 +17,12 @@ class Square(Shape) : # sqaure obejct
         self.side_length = side_length
         self.color = color
 
-    def draw(self, screen:Screen.Screen) : # draw a sqaure on a screen
+    def draw(self, screen) : # draw a sqaure on a screen
         pygame.draw.rect(screen, self.color, pygame.Rect(self.vector.x, self.vector.y, self.side_length, self.side_length))
 
 class Clear(Sendable) :
     def __init__(self) :
         self.type = 'Clear' # type
 
-    def assignment(self, screen:Screen.Screen) :
+    def assignment(self, screen) :
         screen.objects = []

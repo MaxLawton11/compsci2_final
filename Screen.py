@@ -1,8 +1,5 @@
 import pygame
 
-import ScreenObjects
-
-
 class Screen : # a window of pygame
     def __init__(self) :
         self.objects = [] # objects to be printed every frame
@@ -13,7 +10,7 @@ class Screen : # a window of pygame
         self.clock = pygame.time.Clock()
         self.dt = 0 # store deltatime
 
-    def assign(self, object:ScreenObjects.Sendable) : # add new object to list
+    def assign(self, object) : # add new object to list
         object.assignment(object)
 
     def frame(self) : # update frame

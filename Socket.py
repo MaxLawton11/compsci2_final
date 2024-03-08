@@ -3,26 +3,25 @@ import threading
 import json
 import warnings
 
-import Client
-import ScreenObjects
+from ScreenObjects import Sendable, Shape, Square, Clear
 
 # ip of master computer
 ip = '172.20.10.2'
 port = 1234
 
 class Socket : # basic socket menthods
-    def send(self, object:ScreenObjects.Sendable) : # send info over socket
+    def send(self, object) : # send info over socket
 
         #gard clause for non-sendables
-        if not isinstance(object, ScreenObjects.Sendable) :
+        if not isinstance(object, Sendable) :
             raise TypeError('Cannot send non-sendable!')
         
         packet = { # basic json packet
             'type'        : object.type,       # everthying sent must have a type
-            'x'           : object.vector.x    if isinstance(object, ScreenObjects.Shape) else None,
-            'y'           : object.vector.y    if isinstance(object, ScreenObjects.Shape) else None,
-            'side_length' : object.side_length if isinstance(object, ScreenObjects.Shape) else None,
-            'color'       : object.color       if isinstance(object, ScreenObjects.Shape) else None,
+            'x'           : object.vector.x    if isinstance(object, Shape) else None,
+            'y'           : object.vector.y    if isinstance(object, Shape) else None,
+            'side_length' : object.side_length if isinstance(object, Shape) else None,
+            'color'       : object.color       if isinstance(object, Shape) else None,
         }
         self.connection.send(str(packet).encode()) # send packet
 
@@ -45,15 +44,15 @@ class Socket : # basic socket menthods
             # the packet is a string, so we need to match the type with a code object
             match packet['type'] :
                 case 'Shape' :
-                    self.parent_Client.screen.assign(ScreenObjects.Square(packet['x'], packet['y'], packet['side_length'], packet['color']) ) # add new packet to local screen
+                    self.parent_Client.screen.assign(Square(packet['x'], packet['y'], packet['side_length'], packet['color']) ) # add new packet to local screen
                 case 'Clear' :
-                    self.parent_Client.screen.assign(ScreenObjects.Clear())
+                    self.parent_Client.screen.assign(Clear())
                 case _ : # if none of above
                     warnings.warn("Invalid packet type received. Moving on.") # let user know that there was an incorrect packet
                     continue
 
 class MasterSocket(Socket) : # the Master Socket
-    def __init__(self, parent_Client:Client.Master) :
+    def __init__(self, parent_Client) :
         self.parent_Client = parent_Client # track parent
 
         # start socker server
@@ -72,7 +71,7 @@ class MasterSocket(Socket) : # the Master Socket
 
 
 class ClientSocket(Socket) : # the Client Socket
-    def __init__(self, parent_Client:Client.Client) :
+    def __init__(self, parent_Client) :
         self.parent_Client = parent_Client # track parent
 
         # join socket server
