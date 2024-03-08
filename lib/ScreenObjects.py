@@ -1,10 +1,12 @@
 import pygame
 
 class Sendable :
-    pass
+    def __init__(self) :
+        self.type = None
 
 class Shape(Sendable) : # basic shape
     def __init__(self, x, y) :
+        super().__init__()
         self.vector = pygame.Vector2(x, y) # pos of shape
         self.type = 'Shape' # type
 
@@ -22,6 +24,7 @@ class Square(Shape) : # sqaure obejct
 
 class Clear(Sendable) : # a cmd to clear a screen
     def __init__(self) :
+        super().__init__()
         self.type = 'Clear' # type
 
     def assignment(self, screen) : # clear when run
@@ -29,6 +32,7 @@ class Clear(Sendable) : # a cmd to clear a screen
 
 class ChangeGBColor(Sendable) : # a cmd to change bg color
     def __init__(self, color) :
+        super().__init__()
         self.type = 'BGColor' # type
         self.color = color
 
