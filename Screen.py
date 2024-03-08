@@ -37,13 +37,14 @@ class UserInput : # get user inputs
             if event.type == pygame.QUIT:
                 exit()
 
-            if event.type == pygame.K_c :
-                print("c!")
-
             if event.type == pygame.MOUSEBUTTONDOWN : # see if mouse was pressed
                 self.mouse_click_last = True # set true cuz we pressed
             else :
                 self.mouse_click_last = False # mouse was not pressed in this frame, set to false
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_c] :
+            print("c!")
 
     def getMousePos(self) : # get pos of mouse
         return pygame.mouse.get_pos()
