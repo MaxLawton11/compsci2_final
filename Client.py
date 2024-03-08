@@ -19,6 +19,7 @@ class _SubClient : # holds the methods used by both types of clients
             self.socket.send(ScreenObjects.Square(cx,cy, 20, self.shape_color )) # send a shape to peer
 
         if self.user_input.getCClicked() :
+            self.screen.assign(ScreenObjects.Clear())
             self.socket.send(ScreenObjects.Clear()) # send a clear cmd to peer
 
 class Client(_SubClient) : # the Client
