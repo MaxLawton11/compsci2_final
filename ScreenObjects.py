@@ -26,3 +26,11 @@ class Clear(Sendable) :
 
     def assignment(self, screen) :
         screen.objects = []
+
+class ChangeGBColor(Sendable) :
+    def __init__(self, color) :
+        self.type = 'BGColor' # type
+        self.color = color
+
+    def assignment(self, screen) :
+        screen.color = self.color

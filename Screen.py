@@ -3,6 +3,7 @@ import pygame
 class Screen : # a window of pygame
     def __init__(self) :
         self.objects = [] # objects to be printed every frame
+        self.color = 'white'
 
         # crate pygame window
         pygame.init() 
@@ -14,7 +15,7 @@ class Screen : # a window of pygame
         object.assignment(self)
 
     def frame(self) : # update frame
-        self.screen.fill("white") # reset screen
+        self.screen.fill(self.color) # reset screen
         self._drawObjects()
 
         # show and loop
@@ -31,7 +32,12 @@ class UserInput : # get user inputs
     def __init__(self) :
         # track if the events happened in the last frame 
         self.mouse_click_last = False
+
         self.c_click_last = False
+        self.r_click_last = False
+        self.g_click_last = False
+        self.b_click_last = False
+        self.w_click_last = False
 
     def testEvents(self) :
         for event in pygame.event.get(): # cheack for quit or "x" on window
@@ -44,10 +50,11 @@ class UserInput : # get user inputs
                 self.mouse_click_last = False # mouse was not pressed in this frame, set to false
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_c] :
-            self.c_click_last = True
-        else :
-            self.c_click_last = False
+        self.c_click_last = True if keys[pygame.K_c] else False
+        self.r_click_last = True if keys[pygame.K_r] else False
+        self.g_click_last = True if keys[pygame.K_g] else False
+        self.b_click_last = True if keys[pygame.K_b] else False
+        self.w_click_last = True if keys[pygame.K_w] else False
 
     def getMousePos(self) : # get pos of mouse
         return pygame.mouse.get_pos()
@@ -57,3 +64,15 @@ class UserInput : # get user inputs
     
     def getCClicked(self) :
         return self.c_click_last
+    
+    def getRClicked(self) :
+        return self.r_click_last
+    
+    def getGClicked(self) :
+        return self.g_click_last
+    
+    def getBClicked(self) :
+        return self.b_click_last
+    
+    def getWClicked(self) :
+        return self.w_click_last

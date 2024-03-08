@@ -3,7 +3,7 @@ import threading
 import json
 import warnings
 
-from ScreenObjects import Sendable, Shape, Square, Clear
+from ScreenObjects import Sendable, Shape, Square, Clear, ChangeGBColor
 
 # ip of master computer
 ip = '192.168.86.129'
@@ -21,7 +21,7 @@ class Socket : # basic socket menthods
             'x'           : object.vector.x    if isinstance(object, Shape) else 'None',
             'y'           : object.vector.y    if isinstance(object, Shape) else 'None',
             'side_length' : object.side_length if isinstance(object, Shape) else 'None',
-            'color'       : object.color       if isinstance(object, Shape) else 'None',
+            'color'       : object.color       if isinstance(object, Shape) or  isinstance(object, ChangeGBColor) else 'None',
         }
         self.connection.send(str(packet).encode()) # send packet
 
@@ -47,6 +47,8 @@ class Socket : # basic socket menthods
                     self.parent_Client.screen.assign(Square(packet['x'], packet['y'], packet['side_length'], packet['color']) ) # add new packet to local screen
                 case 'Clear' :
                     self.parent_Client.screen.assign(Clear())
+                case 'BGColor' :
+                    self.parent_Client.screen.assign(ChangeGBColor('white'))
                 case _ : # if none of above
                     warnings.warn("Invalid packet type received. Moving on.") # let user know that there was an incorrect packet
                     continue
