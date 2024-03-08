@@ -4,7 +4,7 @@ class Sendable :
     pass
 
 class Shape(Sendable) : # basic shape
-    def __init__(self, x:float, y:float) :
+    def __init__(self, x, y) :
         self.vector = pygame.Vector2(x, y) # pos of shape
         self.type = 'Shape' # type
 
@@ -12,7 +12,7 @@ class Shape(Sendable) : # basic shape
         screen.objects.append(self)
 
 class Square(Shape) : # sqaure obejct
-    def __init__(self, x:float, y:float, side_length:int, color:str):
+    def __init__(self, x, y, side_length, color):
         super().__init__(x,y) # set vector
         self.side_length = side_length
         self.color = color
