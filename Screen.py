@@ -37,6 +37,9 @@ class UserInput : # get user inputs
             if event.type == pygame.QUIT:
                 exit()
 
+            if event.type == pygame.K_c :
+                print("c!")
+
             if event.type == pygame.MOUSEBUTTONDOWN : # see if mouse was pressed
                 self.mouse_click_last = True # set true cuz we pressed
             else :
