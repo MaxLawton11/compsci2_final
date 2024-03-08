@@ -18,23 +18,24 @@ class _SubClient : # holds the methods used by both types of clients
             self.screen.assign(ScreenObjects.Square(cx,cy, 20, self.shape_color )) # print a shape localy
             self.socket.send(ScreenObjects.Square(cx,cy, 20, self.shape_color )) # send a shape to peer
 
-        if self.user_input.getCClicked() :
+        # send keybind cmds
+        if self.user_input.getCClicked() : # clear on c
             self.screen.assign(ScreenObjects.Clear())
             self.socket.send(ScreenObjects.Clear()) # send a clear cmd to peer
 
-        if self.user_input.getRClicked() :
+        if self.user_input.getRClicked() : # red on r
             self.screen.assign(ScreenObjects.ChangeGBColor('firebrick1'))
             self.socket.send(ScreenObjects.ChangeGBColor('firebrick1'))
 
-        if self.user_input.getGClicked() :
+        if self.user_input.getGClicked() : # green on g
             self.screen.assign(ScreenObjects.ChangeGBColor('green3'))
             self.socket.send(ScreenObjects.ChangeGBColor('green3'))
 
-        if self.user_input.getBClicked() :
+        if self.user_input.getBClicked() : # blue on b
             self.screen.assign(ScreenObjects.ChangeGBColor('lightslateblue'))
             self.socket.send(ScreenObjects.ChangeGBColor('lightslateblue'))
 
-        if self.user_input.getWClicked() :
+        if self.user_input.getWClicked() : # white on white
             self.screen.assign(ScreenObjects.ChangeGBColor('white'))
             self.socket.send(ScreenObjects.ChangeGBColor('white'))
 

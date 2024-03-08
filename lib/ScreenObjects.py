@@ -20,17 +20,17 @@ class Square(Shape) : # sqaure obejct
     def draw(self, screen) : # draw a sqaure on a screen
         pygame.draw.rect(screen, self.color, pygame.Rect(self.vector.x, self.vector.y, self.side_length, self.side_length))
 
-class Clear(Sendable) :
+class Clear(Sendable) : # a cmd to clear a screen
     def __init__(self) :
         self.type = 'Clear' # type
 
-    def assignment(self, screen) :
+    def assignment(self, screen) : # clear when run
         screen.objects = []
 
-class ChangeGBColor(Sendable) :
+class ChangeGBColor(Sendable) : # a cmd to change bg color
     def __init__(self, color) :
         self.type = 'BGColor' # type
         self.color = color
 
-    def assignment(self, screen) :
+    def assignment(self, screen) : # change colot to stored color
         screen.color = self.color
