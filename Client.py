@@ -23,16 +23,16 @@ class _SubClient : # holds the methods used by both types of clients
             self.socket.send(ScreenObjects.Clear()) # send a clear cmd to peer
 
         if self.user_input.getRClicked() :
-            self.screen.assign(ScreenObjects.ChangeGBColor('light red'))
-            self.socket.send(ScreenObjects.ChangeGBColor('light red'))
+            self.screen.assign(ScreenObjects.ChangeGBColor('firebrick1'))
+            self.socket.send(ScreenObjects.ChangeGBColor('firebrick1'))
 
         if self.user_input.getGClicked() :
-            self.screen.assign(ScreenObjects.ChangeGBColor('light green'))
-            self.socket.send(ScreenObjects.ChangeGBColor('light green'))
+            self.screen.assign(ScreenObjects.ChangeGBColor('green3'))
+            self.socket.send(ScreenObjects.ChangeGBColor('green3'))
 
         if self.user_input.getBClicked() :
-            self.screen.assign(ScreenObjects.ChangeGBColor('light blue'))
-            self.socket.send(ScreenObjects.ChangeGBColor('light blue'))
+            self.screen.assign(ScreenObjects.ChangeGBColor('lightslateblue'))
+            self.socket.send(ScreenObjects.ChangeGBColor('lightslateblue'))
 
         if self.user_input.getWClicked() :
             self.screen.assign(ScreenObjects.ChangeGBColor('white'))
