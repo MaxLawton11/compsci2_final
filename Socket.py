@@ -48,7 +48,7 @@ class Socket : # basic socket menthods
                 case 'Clear' :
                     self.parent_Client.screen.assign(Clear())
                 case 'BGColor' :
-                    self.parent_Client.screen.assign(ChangeGBColor('white'))
+                    self.parent_Client.screen.assign(ChangeGBColor(packet['color']))
                 case _ : # if none of above
                     warnings.warn("Invalid packet type received. Moving on.") # let user know that there was an incorrect packet
                     continue
