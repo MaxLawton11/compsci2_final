@@ -1,5 +1,7 @@
 import pygame
 
+
+
 class Shape : # basic shape
     def __init__(self, x, y) :
         self.vector = pygame.Vector2(x, y) # pos of shape
@@ -14,3 +16,7 @@ class Square(Shape) : # sqaure obejct
 
     def draw(self, screen) : # draw a sqaure on a screen
         pygame.draw.rect(screen, self.color, self.sprite)
+
+class Clear :
+    def __init__(self) :
+        self.type = Shape
