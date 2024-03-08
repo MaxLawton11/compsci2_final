@@ -31,6 +31,7 @@ class UserInput : # get user inputs
     def __init__(self) :
         # track if the events happened in the last frame 
         self.mouse_click_last = False
+        self.c_click_last = False
 
     def testEvents(self) :
         for event in pygame.event.get(): # cheack for quit or "x" on window
@@ -44,10 +45,15 @@ class UserInput : # get user inputs
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_c] :
-            print("c!")
+            self.c_click_last = True
+        else :
+            self.c_click_last = False
 
     def getMousePos(self) : # get pos of mouse
         return pygame.mouse.get_pos()
     
     def getMouseClicked(self) : # see if mouse was pressed in last frame
         return self.mouse_click_last
+    
+    def getCClicked(self) :
+        return self.c_click_last
