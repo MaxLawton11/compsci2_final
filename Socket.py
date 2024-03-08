@@ -6,7 +6,7 @@ import warnings
 from ScreenObjects import Sendable, Shape, Square, Clear
 
 # ip of master computer
-ip = '172.20.10.2'
+ip = '192.168.86.129'
 port = 1234
 
 class Socket : # basic socket menthods
