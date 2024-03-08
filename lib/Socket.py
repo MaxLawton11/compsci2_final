@@ -21,7 +21,7 @@ class Socket : # basic socket menthods
             'x'           : object.vector.x    if isinstance(object, Shape) else 'None',
             'y'           : object.vector.y    if isinstance(object, Shape) else 'None',
             'side_length' : object.side_length if isinstance(object, Shape) else 'None',
-            'color'       : object.color       if isinstance(object, Shape) or  isinstance(object, ChangeGBColor) else 'None',
+            'color'       : object.color       if isinstance(object, Shape) or isinstance(object, ChangeGBColor) else 'None',
         }
         self.connection.send(str(packet).encode()) # send packet
 
