@@ -6,7 +6,7 @@ import warnings
 from lib.ScreenObjects import Sendable, Shape, Square, Clear, ChangeGBColor
 
 # ip of master computer
-ip = '192.168.86.129'
+ip = '172.20.10.2'
 port = 1234
 
 class Socket : # basic socket menthods
