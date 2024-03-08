@@ -11,7 +11,7 @@ class Screen : # a window of pygame
         self.dt = 0 # store deltatime
 
     def assign(self, object) : # add new object to list
-        object.assignment(object)
+        object.assignment(self)
 
     def frame(self) : # update frame
         self.screen.fill("white") # reset screen
