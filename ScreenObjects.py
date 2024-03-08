@@ -1,22 +1,30 @@
 import pygame
 
+import Screen
 
+class Sendable :
+    pass
 
-class Shape : # basic shape
-    def __init__(self, x, y) :
+class Shape(Sendable) : # basic shape
+    def __init__(self, x:float, y:float) :
         self.vector = pygame.Vector2(x, y) # pos of shape
         self.type = 'Shape' # type
 
+    def assignment(self, screen:Screen.Screen) :
+        screen.objects.append(self)
+
 class Square(Shape) : # sqaure obejct
-    def __init__(self, x, y, side_length, color):
+    def __init__(self, x:float, y:float, side_length:int, color:str):
         super().__init__(x,y) # set vector
         self.side_length = side_length
         self.color = color
-        self.sprite = pygame.Rect(self.vector.x,self.vector.y, side_length,side_length) # make sprite (a square)
 
-    def draw(self, screen) : # draw a sqaure on a screen
-        pygame.draw.rect(screen, self.color, self.sprite)
+    def draw(self, screen:Screen.Screen) : # draw a sqaure on a screen
+        pygame.draw.rect(screen, self.color, pygame.Rect(self.vector.x, self.vector.y, self.side_length, self.side_length))
 
-class Clear :
+class Clear(Sendable) :
     def __init__(self) :
-        self.type = Shape
+        self.type = 'Clear' # type
+
+    def assignment(self, screen:Screen.Screen) :
+        screen.objects = []

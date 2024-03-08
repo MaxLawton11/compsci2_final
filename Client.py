@@ -1,4 +1,4 @@
-import Shapes as Shapes
+import ScreenObjects as ScreenObjects
 import Socket as Socket
 import Screen as Screen
 
@@ -15,8 +15,8 @@ class _SubClient : # holds the methods used by both types of clients
     def addObjectOnClick(self) : # if the mosue was pressed, then print and send a shape
         if self.user_input.getMouseClicked() : # test for press
             cx, cy = self.user_input.getMousePos() # get cords
-            self.screen.addObject(Shapes.Square(cx,cy, 20, self.shape_color )) # print a shape localy
-            self.socket.send(Shapes.Square(cx,cy, 20, self.shape_color )) # send a shape to peer
+            self.screen.addObject(ScreenObjects.Square(cx,cy, 20, self.shape_color )) # print a shape localy
+            self.socket.send(ScreenObjects.Square(cx,cy, 20, self.shape_color )) # send a shape to peer
 
 class Client(_SubClient) : # the Client
     def __init__(self):
